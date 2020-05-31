@@ -1,0 +1,31 @@
+{
+  "name": "nattramn",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Client for Nattramn.",
+  "scripts": {
+    "build": "npx @pika/pack",
+    "release": "npm version patch && npm run build && cd pkg && npm publish && cd ../ && git push --follow-tags"
+  },
+  "author": "Jeremy Karlsson <jeremy@vufuzi.se>",
+  "license": "MIT",
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ],
+      [
+        "@pika/plugin-bundle-web"
+      ]
+    ]
+  },
+  "devDependencies": {
+    "@pika/plugin-build-types": "^0.9.2",
+    "@pika/plugin-build-web": "^0.9.2",
+    "@pika/plugin-bundle-web": "^0.9.2",
+    "@pika/plugin-standard-pkg": "^0.9.2"
+  }
+}
