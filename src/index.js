@@ -131,7 +131,7 @@ class NattramnRouter extends HTMLElement {
 
 window.customElements.define('nattramn-router', NattramnRouter);
 
-class NattLink extends HTMLElement {
+class NattramnLink extends HTMLElement {
   constructor () {
     super();
 
