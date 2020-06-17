@@ -152,11 +152,11 @@ class NattramnLink extends HTMLElement {
   preloadLink () {
     const href = this.getAttribute('href');
     const search = href ? href.indexOf('?') !== -1 ? href.split('?')[1] : null : null;
-    const linkToPreload = urlWithoutSearch(this.getAttribute('href')) + '?partialContent=true' + (search ? '&' + search : '');
+    const linkToPreload = href ? urlWithoutSearch(href) + '?partialContent=true' + (search ? '&' + search : '') : null;
 
     const currentLinkElement = document.querySelector(`link[href="${linkToPreload}"]`);
 
-    if (!currentLinkElement) {
+    if (!currentLinkElement && linkToPreload) {
       const link = document.createElement('link');
 
       link.setAttribute('rel', 'preload');
@@ -184,18 +184,25 @@ class NattramnLink extends HTMLElement {
     const a = document.createElement('a');
     const href = this.getAttribute('href');
 
-    a.href = href;
+    if (href) {
+      a.href = href;
+    }
+
     a.innerHTML = `
       <style>
       :host {cursor:pointer}
-      a {all:unset;display:content}
+      a {all:unset;display:contents;color:currentColor}
       </style>
       <slot></slot>
     `;
 
     this.addEventListener('click', event => {
       event.preventDefault();
-      this.navigate(href);
+      const href = this.getAttribute('href');
+
+      if (href) {
+        this.navigate(href);
+      }
     });
 
     this.addEventListener('mouseover', () => this.handleMouseOver(), false);
