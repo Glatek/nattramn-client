@@ -47,10 +47,13 @@ class NattramnRouter extends HTMLElement {
     const text = await response.text();
     const template = stringToElements(`<template>${text}</template>`)[0];
 
-    const headerUpdates = response.headers.get('X-Header-Updates');
+    const rawHeaderUpdates = response.headers.get('X-Header-Updates');
 
-    if (headerUpdates) {
-      const { title } = JSON.parse(atob(headerUpdates));
+    if (rawHeaderUpdates) {
+      const decoder = new TextDecoder();
+      const decodedHeaderUpdates = decoder.decode(new Uint8Array(JSON.parse(rawHeaderUpdates)));
+      // @ts-ignore
+      const { title } = decodedHeaderUpdates;
 
       if (title) {
         document.title = title;
