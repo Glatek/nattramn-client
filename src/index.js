@@ -53,7 +53,7 @@ class NattramnRouter extends HTMLElement {
       const decoder = new TextDecoder();
       const decodedHeaderUpdates = decoder.decode(new Uint8Array(JSON.parse(rawHeaderUpdates)));
       // @ts-ignore
-      const { title } = decodedHeaderUpdates;
+      const { title } = JSON.parse(decodedHeaderUpdates);
 
       if (title) {
         document.title = title;
